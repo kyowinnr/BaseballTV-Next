@@ -5,6 +5,7 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -35,3 +36,10 @@ jobs:
 
     - name: Build debug APK
       run: ./gradlew assembleDebug
+
+    - name: Upload debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: stream-prime-debug-apk
+        path: app/build/outputs/apk/debug/*.apk
+        if-no-files-found: error
